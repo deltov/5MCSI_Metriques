@@ -2,108 +2,121 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Contact Argenté</title>
+  <title>Contact Intergalactique</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(145deg, #d4d4d4, #f1f1f1);
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Share Tech Mono', monospace;
+      background: radial-gradient(circle at top center, #000000, #1a1a1a);
+      color: #00ffe1;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      overflow: hidden;
     }
 
-    .contact-card {
-      background: linear-gradient(145deg, #e6e6e6, #cfcfcf);
-      border-radius: 20px;
+    .console-frame {
+      background: rgba(0, 255, 225, 0.05);
+      border: 2px solid #00ffe1;
+      border-radius: 12px;
       padding: 40px;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
-      width: 400px;
-      max-width: 90%;
-      border: 1px solid #bbb;
+      box-shadow: 0 0 20px #00ffe1, inset 0 0 10px #00ffe1;
+      width: 420px;
+      max-width: 95%;
+      position: relative;
+      animation: flicker 1s infinite alternate;
     }
 
-    h2 {
+    @keyframes flicker {
+      0% { box-shadow: 0 0 20px #00ffe1, inset 0 0 10px #00ffe1; }
+      100% { box-shadow: 0 0 25px #00ffe1, inset 0 0 15px #00ffe1; }
+    }
+
+    .console-frame h2 {
       text-align: center;
-      color: #444;
-      margin-bottom: 30px;
-      text-shadow: 1px 1px 0 #fff;
+      font-size: 22px;
+      margin-bottom: 25px;
+      border-bottom: 1px solid #00ffe1;
+      padding-bottom: 10px;
     }
 
-    .form-group {
+    .input-group {
       margin-bottom: 20px;
     }
 
-    .form-group label {
+    .input-group label {
       display: block;
-      color: #333;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #aaa;
-      background-color: #f9f9f9;
-      box-shadow: inset 1px 1px 3px rgba(255, 255, 255, 0.6),
-                  inset -1px -1px 2px rgba(0, 0, 0, 0.1);
       font-size: 14px;
+      margin-bottom: 6px;
     }
 
-    .form-group textarea {
-      resize: vertical;
-      height: 100px;
+    .input-group input,
+    .input-group textarea {
+      width: 100%;
+      background-color: transparent;
+      border: 1px solid #00ffe1;
+      padding: 10px;
+      color: #00ffe1;
+      border-radius: 6px;
+      font-size: 14px;
+      resize: none;
+      outline: none;
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus {
+      box-shadow: 0 0 10px #00ffe1;
     }
 
     button {
       width: 100%;
-      padding: 14px;
-      background: linear-gradient(145deg, #b8b8b8, #e0e0e0);
-      border: 1px solid #aaa;
-      border-radius: 12px;
-      color: #333;
-      font-size: 15px;
-      font-weight: bold;
+      padding: 12px;
+      background: transparent;
+      color: #00ffe1;
+      font-size: 16px;
+      border: 2px solid #00ffe1;
+      border-radius: 8px;
       cursor: pointer;
       transition: all 0.3s ease;
     }
 
     button:hover {
-      background: linear-gradient(145deg, #c4c4c4, #fafafa);
+      background: #00ffe1;
+      color: #000;
+      box-shadow: 0 0 10px #00ffe1;
     }
 
     .note {
-      font-size: 12px;
-      color: #666;
-      margin-top: 10px;
       text-align: center;
+      font-size: 12px;
+      margin-top: 15px;
+      color: #00ffe19c;
     }
   </style>
 </head>
 <body>
-  <div class="contact-card">
-    <h2>Contactez-moi</h2>
+  <div class="console-frame">
+    <h2>🛰 Terminal de Contact</h2>
     <form>
-      <div class="form-group">
-        <label for="prenom">Prénom</label>
-        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom">
+      <div class="input-group">
+        <label for="prenom">Prénom galactique</label>
+        <input type="text" id="prenom" name="prenom" placeholder="Jean-Luc">
       </div>
-      <div class="form-group">
-        <label for="nom">Nom</label>
-        <input type="text" id="nom" name="nom" placeholder="Votre nom">
+      <div class="input-group">
+        <label for="nom">Nom de famille stellaire</label>
+        <input type="text" id="nom" name="nom" placeholder="Picard">
       </div>
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" placeholder="Votre message ici..."></textarea>
+      <div class="input-group">
+        <label for="message">Message intersidéral</label>
+        <textarea id="message" name="message" placeholder="Je viens en paix..." rows="4"></textarea>
       </div>
-      <button type="submit">Envoyer</button>
+      <button type="submit">Transmettre</button>
     </form>
-    <p class="note">Ce formulaire ne transmet pas encore vos données (simulation)</p>
+    <div class="note">⚠️ Aucun signal ne sera réellement envoyé (simulé)</div>
   </div>
 </body>
 </html>
