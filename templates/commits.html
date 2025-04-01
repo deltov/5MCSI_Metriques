@@ -1,67 +1,67 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8">
-    <title>Commits GitHub</title>
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        color: #333;
-        padding: 20px;
-      }
+<head>
+  <meta charset="UTF-8">
+  <title>Commits GitHub</title>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      padding: 20px;
+    }
 
-      h1 {
-        text-align: center;
-      }
+    h1 {
+      text-align: center;
+    }
 
-      #chart_div {
-        width: 100%;
-        max-width: 960px;
-        height: 500px;
-        margin: 40px auto;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.05);
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Commits GitHub par minute</h1>
-    <div id="chart_div"></div>
+    #chart_div {
+      width: 100%;
+      max-width: 960px;
+      height: 500px;
+      margin: 40px auto;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>Commits GitHub par minute</h1>
+  <div id="chart_div"></div>
 
-    <script>
-      google.charts.load("current", { packages: ["corechart"] });
-      google.charts.setOnLoadCallback(drawChart);
+  <script>
+    google.charts.load("current", { packages: ["corechart"] });
+    google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
-        fetch("/commits/", { headers: { "Accept": "application/json" } })
-          .then(response => response.json())
-          .then(json => {
-            const data = new google.visualization.DataTable();
-            data.addColumn("string", "Minute");
-            data.addColumn("number", "Commits");
+    function drawChart() {
+      fetch("/api/commits") 
+        .then(response => response.json())
+        .then(json => {
+          const data = new google.visualization.DataTable();
+          data.addColumn("string", "Minute");
+          data.addColumn("number", "Commits");
 
-            json.results.forEach(entry => {
-              data.addRow([entry.minute.toString(), entry.count]);
-            });
-
-            const options = {
-              title: "Nombre de commits GitHub par minute",
-              hAxis: { title: "Minute" },
-              vAxis: { title: "Commits", minValue: 0 },
-              legend: "none",
-              backgroundColor: "#fff",
-              colors: ["#3366cc"]
-            };
-
-            const chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
-            chart.draw(data, options);
+          json.results.forEach(entry => {
+            data.addRow([entry.minute.toString(), entry.count]);
           });
-      }
-    </script>
-  </body>
+
+          const options = {
+            title: "Nombre de commits GitHub par minute",
+            hAxis: { title: "Minute" },
+            vAxis: { title: "Commits", minValue: 0 },
+            legend: "none",
+            backgroundColor: "#fff",
+            colors: ["#3366cc"]
+          };
+
+          const chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
+          chart.draw(data, options);
+        });
+    }
+  </script>
+</body>
 </html>
