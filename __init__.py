@@ -11,6 +11,10 @@ app = Flask(__name__) #5
 def hello_world():
     return render_template('hello.html')
 
+@app.route("/histogramme/")
+def histogramme():
+    return render_template("histogramme.html")
+
 @app.route('/tawarano/')
 def meteo():
     response = urlopen('https://samples.openweathermap.org/data/2.5/forecast?lat=0&lon=0&appid=xxx')
@@ -26,10 +30,6 @@ def meteo():
 @app.route("/rapport/")
 def mongraphique():
     return render_template("graphique.html")
-
-@app.route("/histogramme/")
-def histogramme():
-    return render_template("histogramme.html")
 
 @app.route("/contact/")
 def contact_form():
