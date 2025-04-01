@@ -5,7 +5,7 @@ from datetime import datetime
 from urllib.request import urlopen
 import sqlite3
 
-app = Flask(name) #sa 
+app = Flask(name) 
 
 @app.route("/contact/")
 def MaPremiereAPI():
