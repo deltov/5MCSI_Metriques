@@ -35,6 +35,25 @@ def mongraphique():
 def contact_form():
     return render_template("contact.html")
 
+@app.route("/commits/")
+def commits():
+    if request.headers.get("Accept") == "application/json":
+        url = "https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits" 
+        with urlopen(url) as response:
+            commits_data = json.loads(response.read().decode("utf-8"))
+
+        minutes = []
+        for commit in commits_data:
+            date_str = commit.get("commit", {}).get("author", {}).get("date")
+            if date_str:
+                dt = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
+                minutes.append(dt.minute)
+
+        counts = Counter(minutes)
+        return jsonify(results=[{"minute": k, "count": v} for k, v in sorted(counts.items())])
+
+    return render_template("commits.html")
+
   
 if __name__ == "__main__":
   app.run(debug=True)
