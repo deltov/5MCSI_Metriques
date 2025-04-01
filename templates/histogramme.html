@@ -2,13 +2,48 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Histogramme</title>
+  <title>Histogramme des températures</title>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(145deg, #1f1f1f, #3d3d3d);
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      height: 100vh;
+      padding-top: 40px;
+    }
+
+    h2 {
+      color: #c0c0c0;
+      text-shadow: 0 0 8px #00fff7;
+      margin-bottom: 20px;
+    }
+
+    #chart_div {
+      width: 90%;
+      max-width: 900px;
+      height: 500px;
+      background: #2d2d2d;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+      padding: 15px;
+    }
+
+    /* Import Orbitron font from Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+  </style>
 </head>
 <body>
-  <div id="chart_div" style="height:500px;"></div>
+  <h2>📊 Températures Futuristes - Tawarano</h2>
+  <div id="chart_div"></div>
 
-  <script>
+  <script type="text/javascript">
     google.charts.load("current", { packages: ["corechart"] });
     google.charts.setOnLoadCallback(drawChart);
 
@@ -16,21 +51,38 @@
       fetch("/tawarano/")
         .then(response => response.json())
         .then(data => {
-          var dataTable = new google.visualization.DataTable();
+          const dataTable = new google.visualization.DataTable();
           dataTable.addColumn("string", "Jour");
-          dataTable.addColumn("number", "Temp");
+          dataTable.addColumn("number", "Température (°C)");
 
           data.results.forEach(entry => {
-            var date = new Date(entry.Jour * 1000);
+            const date = new Date(entry.Jour * 1000);
             dataTable.addRow([date.toLocaleDateString(), entry.temp]);
           });
 
-          var options = {
-            title: "Histogramme des températures",
-            legend: "none"
+          const options = {
+            title: "Évolution des températures - Ville de Tawarano",
+            backgroundColor: '#2d2d2d',
+            titleTextStyle: {
+              color: '#ffffff',
+              fontSize: 18,
+              bold: true
+            },
+            hAxis: {
+              title: "Jour",
+              titleTextStyle: { color: '#cccccc' },
+              textStyle: { color: '#aaa' }
+            },
+            vAxis: {
+              title: "Température (°C)",
+              titleTextStyle: { color: '#cccccc' },
+              textStyle: { color: '#aaa' }
+            },
+            legend: { position: "none" },
+            colors: ["#00fff7"]
           };
 
-          var chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
+          const chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
           chart.draw(dataTable, options);
         });
     }
