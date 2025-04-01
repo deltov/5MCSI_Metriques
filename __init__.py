@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify
 from datetime import datetime
 from urllib.request import urlopen
-import requests  
+import requests
 import json
 import sqlite3
 
