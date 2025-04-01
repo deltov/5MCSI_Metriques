@@ -63,5 +63,9 @@ def commits():
 
     return render_template("commits.html")
 
+@app.route("/commits")
+def commits():
+    return render_template("commits.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
