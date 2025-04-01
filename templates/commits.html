@@ -38,20 +38,21 @@
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-      fetch("/api/commits") 
+      fetch("/api/commits")
         .then(response => response.json())
         .then(json => {
           const data = new google.visualization.DataTable();
-          data.addColumn("string", "Minute");
+          data.addColumn("string", "Minute"); 
           data.addColumn("number", "Commits");
 
           json.results.forEach(entry => {
-            data.addRow([entry.minute.toString(), entry.count]);
+            const minuteStr = entry.minute.toString().padStart(2, "0");  
+            data.addRow([minuteStr, entry.count]);
           });
 
           const options = {
             title: "Nombre de commits GitHub par minute",
-            hAxis: { title: "Minute" },
+            hAxis: { title: "Minute", slantedText: true },
             vAxis: { title: "Commits", minValue: 0 },
             legend: "none",
             backgroundColor: "#fff",
