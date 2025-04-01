@@ -38,7 +38,7 @@
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
-        fetch("/commits/", { headers: { "Accept": "application/json" } })
+        fetch("/api/commits/", { headers: { "Accept": "application/json" } })
           .then(response => response.json())
           .then(json => {
             const data = new google.visualization.DataTable();
